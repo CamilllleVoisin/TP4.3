@@ -11,11 +11,8 @@ import random as rd
 def jetdes():
     lancerdes = [rd.randint(1, 6) for i in range(4)]
     lancerdes.sort(reverse=True)
-    #print(f"lancer des decroissant: {lancerdes}")
     trois_grands_lancers = lancerdes[0:3]
-    #print(f"Les plus grands lancers : {trois_grands_lancers}")
     total_trois_grands_lancers = lancerdes[0] + lancerdes[1] + lancerdes[2]
-    #print(f"Le total des trois jets est : {total_trois_grands_lancers}")
     return sum(trois_grands_lancers)
 
 jetCA = rd.randint(1, 12)
@@ -23,8 +20,10 @@ nom_possible = ["Bob", "Bobby", "Robert", "Jean-bob", "Rafael"]
 nom_choisi = rd.choice(nom_possible)
 race_possible = ["Tieflin", "Nain", "Humain", "Gnome", "Elf", "Dragonborn"]
 race_choisie = rd.choice(race_possible)
-#proffession_possibles = ["Rogue", "Barde", "Guerrier", "Mage", "Noble", "ranger"]
-#proffession_choisie = rd.choice(proffession_possibles)
+
+
+droppable_items = ["Épée courte", "Dague", "Pièce d'or", "Armure de cuir", "Cuir de kobold", "Corne de kobold"]
+dropped_items = [rd.choice(droppable_items), rd.choice(droppable_items), rd.choice(droppable_items)]
 def race():
     race_possible = ["Tieflin", "Nain", "Humain", "Gnome", "Elf", "Dragonborn"]
     race_choisie = rd.choice(race_possible)
@@ -111,6 +110,30 @@ def specif_prof():
     return profession_choisie
 
 
+def capacsac():
+    print(f"\nLe Kobold a droppé {dropped_items}!")
+    choix = input("Voulez vous ajouter des items ou retirer des items de votre sac?\nAjouter\nRetirer\n")
+    capac = ["10 Pièce d'or", "Livre Saint", "Flasque", "Ration"]
+    if choix == "Ajouter":
+        if len(capac) > 5:
+            print("Vous n'avez plus de place dans votre sac!")
+        add_item = input("Quel item voulez vous ajouter a votre sac?\n")
+        search_object = add_item
+        if search_object in dropped_items:
+            capac.append(add_item)
+            dropped_items.remove(add_item)
+        else:
+            print("Erreur! Vous ne pouvez pas faire ça!")
+            capac.remove(add_item)
+            capacsac()
+    elif choix == "Retirer":
+        item_a_retirer = input("Quel item voulez vous retirer?\n")
+        if item_a_retirer in capac:
+            capac.remove(item_a_retirer)
+    print(f"Votre sac contient maintenant : {capac}")
+
+    return capac
+
 #jetdes()
 class NPCDND:
     def __init__(self, hp):
@@ -126,6 +149,10 @@ class NPCDND:
         self.espece = specification_race(self.race)
         self.profession = specif_prof()
         self.vie = hp
+
+
+
+
 
 npc1 = NPCDND(rd.randint(1, 20))
 print(f"La force du NPC est : {npc1.force}, sa constitution est de {npc1.const}, sa dexterité est de {npc1.dex},"
@@ -157,6 +184,10 @@ class Kobold(NPCDND):
         self.tm = type_de_monstre
         self.vie = hp
 
+class sac():
+    def __init__(self):
+        self.capacite = capacsac()
+
 
 
 monstre = Kobold("Kobold", rd.randint(1, 20))
@@ -164,59 +195,69 @@ monstre = Kobold("Kobold", rd.randint(1, 20))
 print(f"\nUn monstre vous attaque! C'est un {monstre.tm}.\nIl a {monstre.vie} PV en plus d'avoir une CA de {monstre.ca}!"
       f" Attention! Il t'attaque!")
 
-while hero.vie or monstre.vie > 0:
-    print("\nLe kobold vous attaque!!")
-    kobold_attackroll = rd.randint(1, 20)
-    if kobold_attackroll == 1:
-        attack_kobold = "Fail"
-        hero_damage_taken = 0
-        hero.vie -= 0
-        print(f"L'attaque du Kobold est un {attack_kobold}! Vous prenez {hero_damage_taken} dégats.")
-    elif kobold_attackroll < hero.ca and kobold_attackroll > 1:
-        print("Le kobold manque son coup! À vous de répliquer.")
-    elif kobold_attackroll >= hero.ca and kobold_attackroll < 20:
-        hero_damage_taken = rd.randint(1, 6)
-        hero.vie -= hero_damage_taken
-        if hero.vie < 0:
-            hero.vie = 0
-        print(
-            f"Le kobold fait une attaque : vous perdez {hero_damage_taken} PV. Vous avez maintenant {hero.vie} PV")
-        if hero.vie <= 0:
-            print(f"{hero.nom} est mort, vous avez perdu!")
-            exit()
-    elif kobold_attackroll == 20:
-        hero_damage_taken = 2*rd.randint(1, 6)
-        hero.vie -= hero_damage_taken
-        print(
-            f"Le kobold fait un coup critique : vous perdez {hero_damage_taken} PV. Vous avez maintenant {hero.vie} PV")
-        if hero.vie <= 0:
-            print(f"Le hero a pris une attaque fatale et est mort. RIP {hero.nom}. Vous avez échoué a votre mission.")
-            exit()
+def combat():
+    while monstre.vie > 0:
+        print("\nLe kobold vous attaque!!")
+        kobold_attackroll = rd.randint(1, 20)
+        if kobold_attackroll == 1:
+            attack_kobold = "Fail"
+            hero_damage_taken = 0
+            hero.vie -= 0
+            print(f"L'attaque du Kobold est un {attack_kobold}! Vous prenez {hero_damage_taken} dégats.")
+        elif kobold_attackroll < hero.ca and kobold_attackroll > 1:
+            print("Le kobold manque son coup! À vous de répliquer.")
+        elif kobold_attackroll >= hero.ca and kobold_attackroll < 20:
+            hero_damage_taken = rd.randint(1, 6)
+            hero.vie -= hero_damage_taken
+            if hero.vie < 0:
+                hero.vie = 0
+            print(
+                f"Le kobold fait une attaque : vous perdez {hero_damage_taken} PV. Vous avez maintenant {hero.vie} PV")
+            if hero.vie <= 0:
+                print(f"{hero.nom} est mort, vous avez perdu!")
+        elif kobold_attackroll == 20:
+            hero_damage_taken = 2*rd.randint(1, 6)
+            hero.vie -= hero_damage_taken
+            print(
+                f"Le kobold fait un coup critique : vous perdez {hero_damage_taken} PV. Vous avez maintenant {hero.vie} PV")
+            if hero.vie <= 0:
+                print(f"Le hero a pris une attaque fatale et est mort. RIP {hero.nom}. Vous avez échoué a votre mission.")
 
 
-    print("\nVous répliquez à l'attaque du kobold.")
-    hero_attackroll = rd.randint(1, 20)
-    if hero_attackroll == 1:
-        attack_hero = "Fail"
-        kobold_damage_taken = 0
-        monstre.vie -= 0
-        print(f"Votre attaque est un {attack_hero}. Le kobold prend {kobold_damage_taken} dégats.")
-    elif hero_attackroll < monstre.ca and hero_attackroll > 1:
-        print("Vous ratez votre coup! Le Kobold réplique!")
-    elif hero_attackroll >= monstre.ca and hero_attackroll < 20:
-        kobold_damage_taken = rd.randint(1, 6)
-        monstre.vie -= kobold_damage_taken
-        if monstre.vie < 0:
-            monstre.vie = 0
-        print(f"Vous avez touché le kobold! Il prend {kobold_damage_taken} dégats. Il lui reste {monstre.vie} PV.")
-        if monstre.vie <= 0:
-            print("Le kobold est mort! vous avez triomphé du combat, votre mission est maintenant finie.")
-            exit()
-    elif hero_attackroll == 20:
-        kobold_damage_taken = 2*rd.randint(1,6)
-        monstre.vie -= kobold_damage_taken
-        print(
-            f"Vous infligez un coup critique! Le kobold perd {kobold_damage_taken} PV. Il a maintenant {monstre.vie} PV")
-        if monstre.vie <= 0:
-            print("Le kobold est mort! vous avez triomphé du combat, votre mission est maintenant finie.")
-            exit()
+        print("\nVous répliquez à l'attaque du kobold.")
+        hero_attackroll = rd.randint(1, 20)
+        if hero_attackroll == 1:
+            attack_hero = "Fail"
+            kobold_damage_taken = 0
+            monstre.vie -= 0
+            print(f"Votre attaque est un {attack_hero}. Le kobold prend {kobold_damage_taken} dégats.")
+        elif hero_attackroll < monstre.ca and hero_attackroll > 1:
+            print("Vous ratez votre coup! Le Kobold réplique!")
+        elif hero_attackroll >= monstre.ca and hero_attackroll < 20:
+            kobold_damage_taken = rd.randint(1, 6)
+            monstre.vie -= kobold_damage_taken
+            if monstre.vie < 0:
+                monstre.vie = 0
+            print(f"Vous avez touché le kobold! Il prend {kobold_damage_taken} dégats. Il lui reste {monstre.vie} PV.")
+            if monstre.vie <= 0:
+                print("Le kobold est mort! vous avez triomphé du combat, votre mission est maintenant finie.")
+        elif hero_attackroll == 20:
+            kobold_damage_taken = 2*rd.randint(1,6)
+            monstre.vie -= kobold_damage_taken
+            print(
+                f"Vous infligez un coup critique! Le kobold perd {kobold_damage_taken} PV. Il a maintenant {monstre.vie} PV")
+            if monstre.vie <= 0:
+                print("Le kobold est mort! vous avez triomphé du combat, votre mission est maintenant finie.")
+combat()
+capacsac()
+add_more_items = input("Voulez vous ajouter d'autres objets a votre sac?\nOui\nNon\n")
+if add_more_items == "Oui" or "oui":
+    capacsac()
+elif add_more_items == "Non" or "non":
+    faire_autre_combat = input("Voulez vous refaire des combats?\nOui\nNon\n")
+    if faire_autre_combat == "Oui":
+        print("Vous recommencez à faire des combats.")
+        combat()
+    elif faire_autre_combat == "Non":
+        print("Vous quittez le jeu.")
+        exit()
