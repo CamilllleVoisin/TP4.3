@@ -15,15 +15,17 @@ def jetdes():
     total_trois_grands_lancers = lancerdes[0] + lancerdes[1] + lancerdes[2]
     return sum(trois_grands_lancers)
 
+
 jetCA = rd.randint(1, 12)
 nom_possible = ["Bob", "Bobby", "Robert", "Jean-bob", "Rafael"]
 nom_choisi = rd.choice(nom_possible)
 race_possible = ["Tieflin", "Nain", "Humain", "Gnome", "Elf", "Dragonborn"]
 race_choisie = rd.choice(race_possible)
 
-
 droppable_items = ["Épée courte", "Dague", "Pièce d'or", "Armure de cuir", "Cuir de kobold", "Corne de kobold"]
 dropped_items = [rd.choice(droppable_items), rd.choice(droppable_items), rd.choice(droppable_items)]
+
+
 def race():
     race_possible = ["Tieflin", "Nain", "Humain", "Gnome", "Elf", "Dragonborn"]
     race_choisie = rd.choice(race_possible)
@@ -34,6 +36,7 @@ def nom_perso():
     nom_possible = ["Bob", "Bobby", "Robert", "Jean-bob", "Rafael"]
     nom_choisi = rd.choice(nom_possible)
     return nom_choisi
+
 
 def specification_race(race_selectionnee):
     espece = "invalide"
@@ -104,10 +107,14 @@ def specification_race(race_selectionnee):
             espece = "White"
     return espece
 
+
 def specif_prof():
     profession_possibles = ["Rogue", "Barde", "Guerrier", "Mage", "Noble", "Ranger"]
     profession_choisie = rd.choice(profession_possibles)
     return profession_choisie
+
+
+
 
 
 def capacsac():
@@ -115,7 +122,7 @@ def capacsac():
     choix = input("Voulez vous ajouter des items ou retirer des items de votre sac?\nAjouter\nRetirer\n")
     capac = ["10 Pièce d'or", "Livre Saint", "Flasque", "Ration"]
     if choix == "Ajouter":
-        if len(capac) > 5:
+        if len(capac) >= 5:
             print("Vous n'avez plus de place dans votre sac!")
         add_item = input("Quel item voulez vous ajouter a votre sac?\n")
         search_object = add_item
@@ -134,7 +141,8 @@ def capacsac():
 
     return capac
 
-#jetdes()
+
+# jetdes()
 class NPCDND:
     def __init__(self, hp):
         self.force = jetdes()
@@ -151,26 +159,34 @@ class NPCDND:
         self.vie = hp
 
 
-
-
-
 npc1 = NPCDND(rd.randint(1, 20))
 print(f"La force du NPC est : {npc1.force}, sa constitution est de {npc1.const}, sa dexterité est de {npc1.dex},"
       f" son intelligence est de {npc1.intel}, sa sagesse est de {npc1.sage}, son charisme est de : {npc1.char},"
       f" sa AC est de : {npc1.ca}. \nSon nom est {npc1.nom}, sa race est : {npc1.race}"
       f" et son espèce est : {npc1.espece}. Le NPC est un : {npc1.profession}. Il a {npc1.vie} PV.")
 
+
 class Hero(NPCDND):
+    #bag: list = []
+
     def __init__(self, hp):
         super().__init__(hp)
         self.raceh = race()
         self.nom = nom_perso()
-        #print(f"{self.raceh}")
-        self.espece = specification_race( self.raceh)
+        # print(f"{self.raceh}")
+        self.espece = specification_race(self.raceh)
         self.vie = hp
 
+    """def add_item(self, item):
+        self.bag.append(item)
+        print(f"Votre sac contient maintenant : {self.bag}")
+"""
 
 hero = Hero(rd.randint(1, 20))
+
+
+
+
 print(f"Voici les stats du Hero : La force du Hero est : {hero.force}, sa constitution est de {hero.const},"
       f" sa dexterité est de {hero.dex},son intelligence est de {hero.intel}, sa sagesse est de {hero.sage},"
       f" son charisme est de : {hero.char}, sa AC est de : {hero.ca}."
@@ -184,19 +200,21 @@ class Kobold(NPCDND):
         self.tm = type_de_monstre
         self.vie = hp
 
+
 class sac():
     def __init__(self):
         self.capacite = capacsac()
 
 
-
 monstre = Kobold("Kobold", rd.randint(1, 20))
 
-print(f"\nUn monstre vous attaque! C'est un {monstre.tm}.\nIl a {monstre.vie} PV en plus d'avoir une CA de {monstre.ca}!"
-      f" Attention! Il t'attaque!")
+print(
+    f"\nUn monstre vous attaque! C'est un {monstre.tm}.\nIl a {monstre.vie} PV en plus d'avoir une CA de {monstre.ca}!"
+    f" Attention! Il t'attaque!")
+
 
 def combat():
-    while monstre.vie > 0:
+    while monstre.vie > 0 and hero.vie > 0:
         print("\nLe kobold vous attaque!!")
         kobold_attackroll = rd.randint(1, 20)
         if kobold_attackroll == 1:
@@ -216,13 +234,13 @@ def combat():
             if hero.vie <= 0:
                 print(f"{hero.nom} est mort, vous avez perdu!")
         elif kobold_attackroll == 20:
-            hero_damage_taken = 2*rd.randint(1, 6)
+            hero_damage_taken = 2 * rd.randint(1, 6)
             hero.vie -= hero_damage_taken
             print(
                 f"Le kobold fait un coup critique : vous perdez {hero_damage_taken} PV. Vous avez maintenant {hero.vie} PV")
             if hero.vie <= 0:
-                print(f"Le hero a pris une attaque fatale et est mort. RIP {hero.nom}. Vous avez échoué a votre mission.")
-
+                print(
+                    f"Le hero a pris une attaque fatale et est mort. RIP {hero.nom}. Vous avez échoué a votre mission.")
 
         print("\nVous répliquez à l'attaque du kobold.")
         hero_attackroll = rd.randint(1, 20)
@@ -242,12 +260,14 @@ def combat():
             if monstre.vie <= 0:
                 print("Le kobold est mort! vous avez triomphé du combat, votre mission est maintenant finie.")
         elif hero_attackroll == 20:
-            kobold_damage_taken = 2*rd.randint(1,6)
+            kobold_damage_taken = 2 * rd.randint(1, 6)
             monstre.vie -= kobold_damage_taken
             print(
                 f"Vous infligez un coup critique! Le kobold perd {kobold_damage_taken} PV. Il a maintenant {monstre.vie} PV")
             if monstre.vie <= 0:
                 print("Le kobold est mort! vous avez triomphé du combat, votre mission est maintenant finie.")
+
+
 combat()
 capacsac()
 add_more_items = input("Voulez vous ajouter d'autres objets a votre sac?\nOui\nNon\n")
