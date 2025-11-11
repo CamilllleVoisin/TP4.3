@@ -6,7 +6,7 @@ finit le
 """
 
 import random as rd
-
+from dataclasses import dataclass
 
 def jetdes():
     lancerdes = [rd.randint(1, 6) for i in range(4)]
@@ -141,6 +141,26 @@ def capacsac():
 
     return capac
 
+@dataclass
+class ITEM:
+    def __init__(self):
+        self.bag = []
+        self.add_item = input("")
+        self.bag.append(self.add_item)
+        print(self.bag)
+
+
+
+item = ITEM()
+
+
+"""    def add_item():
+        bag = []
+        item = input("\nQuel est l'item que vous voulez ajouter?\n")
+        bag.append(item)
+        print(f"Votre sac contient maintenant : {bag}")
+"""
+
 
 # jetdes()
 class NPCDND:
@@ -167,7 +187,6 @@ print(f"La force du NPC est : {npc1.force}, sa constitution est de {npc1.const},
 
 
 class Hero(NPCDND):
-    #bag: list = []
 
     def __init__(self, hp):
         super().__init__(hp)
@@ -177,10 +196,7 @@ class Hero(NPCDND):
         self.espece = specification_race(self.raceh)
         self.vie = hp
 
-    """def add_item(self, item):
-        self.bag.append(item)
-        print(f"Votre sac contient maintenant : {self.bag}")
-"""
+
 
 hero = Hero(rd.randint(1, 20))
 
@@ -214,7 +230,7 @@ print(
 
 
 def combat():
-    while monstre.vie > 0 and hero.vie > 0:
+    while monstre.vie > 0 or hero.vie > 0:
         print("\nLe kobold vous attaque!!")
         kobold_attackroll = rd.randint(1, 20)
         if kobold_attackroll == 1:
@@ -259,6 +275,7 @@ def combat():
             print(f"Vous avez touché le kobold! Il prend {kobold_damage_taken} dégats. Il lui reste {monstre.vie} PV.")
             if monstre.vie <= 0:
                 print("Le kobold est mort! vous avez triomphé du combat, votre mission est maintenant finie.")
+                print(f"Il a droppé {dropped_items}!")
         elif hero_attackroll == 20:
             kobold_damage_taken = 2 * rd.randint(1, 6)
             monstre.vie -= kobold_damage_taken
@@ -266,13 +283,30 @@ def combat():
                 f"Vous infligez un coup critique! Le kobold perd {kobold_damage_taken} PV. Il a maintenant {monstre.vie} PV")
             if monstre.vie <= 0:
                 print("Le kobold est mort! vous avez triomphé du combat, votre mission est maintenant finie.")
+                print(f"Il a droppé {dropped_items}!")
+def next():
+    next_step = input("Voulez vous ajouter des items dans votre sac?\n")
+    if next_step == "Oui" or "oui":
+        item.add_item = input("Quel est l'item que vous voulez ajouter?\n")
+        search_object = item.add_item
+        if search_object in dropped_items:
+            item.bag.append(item.add_item)
+            dropped_items.remove(item.add_item)
+        else:
+            print("Erreur! Vous ne pouvez pas faire ça!")
+            item.bag.remove(item.add_item)
+        item.bag.append(item.add_item)
+        print(item.bag)
+    elif next_step == "Non" or "non":
+        print("Vous allez refaire des combats.")
+        combat()
 
 
 combat()
-capacsac()
-add_more_items = input("Voulez vous ajouter d'autres objets a votre sac?\nOui\nNon\n")
+#capacsac()
+"""add_more_items = input("Voulez vous ajouter d'autres objets a votre sac?\nOui\nNon\n")
 if add_more_items == "Oui" or "oui":
-    capacsac()
+    next()
 elif add_more_items == "Non" or "non":
     faire_autre_combat = input("Voulez vous refaire des combats?\nOui\nNon\n")
     if faire_autre_combat == "Oui":
@@ -280,4 +314,6 @@ elif add_more_items == "Non" or "non":
         combat()
     elif faire_autre_combat == "Non":
         print("Vous quittez le jeu.")
-        exit()
+        exit()"""
+
+next()
