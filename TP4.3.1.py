@@ -114,16 +114,16 @@ def specif_prof():
 
 
 class alignement(Enum):
-    lawful_good = 0
-    lawful_neutral = 1
-    lawful_evil = 2
-    neutral_good = 3
-    neutral = 4
-    neutral_evil = 5
-    chaotic_good = 6
-    chaotic_neutral = 7
-    chaotic_evil = 8
-    sans_alignement = 9
+    LAWFUL_GOOD = 0
+    LAWFUL_NEUTRAL = 1
+    LAWFUL_EVIL = 2
+    NEUTRAL_GOOD = 3
+    NEUTRAL = 4
+    NEUTRAL_EVIL = 5
+    CHAOTIC_GOOD = 6
+    CHAOTIC_NEUTRAL = 7
+    CHAOTIC_EVIL = 8
+    SANS_ALIGNEMENT = 9
 
 
 
@@ -141,7 +141,7 @@ class NPCDND:
         self.espece = specification_race(self.race)
         self.profession = specif_prof()
         self.vie = hp
-        self.align = alignement.sans_alignement
+        self.align = alignement.SANS_ALIGNEMENT
 
 
 npc1 = NPCDND(rd.randint(1, 20))
