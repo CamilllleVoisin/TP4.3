@@ -145,7 +145,7 @@ class NPCDND:
 
 
 npc1 = NPCDND(rd.randint(1, 20))
-print(npc1.align)
+print(f"Votre alignement est : {npc1.align}")
 
 
 print(f"La force du NPC est : {npc1.force}, sa constitution est de {npc1.const}, sa dexterité est de {npc1.dex},"
@@ -184,7 +184,7 @@ monstre = Kobold("Kobold", rd.randint(1, 20))
 print(f"\nUn monstre vous attaque! C'est un {monstre.tm}.\nIl a {monstre.vie} PV en plus d'avoir une CA de {monstre.ca}!"
       f" Attention! Il t'attaque!")
 
-while hero.vie or monstre.vie > 0:
+"""while hero.vie or monstre.vie > 0:
     print("\nLe kobold vous attaque!!")
     kobold_attackroll = rd.randint(1, 20)
     if kobold_attackroll == 1:
@@ -240,3 +240,4 @@ while hero.vie or monstre.vie > 0:
         if monstre.vie <= 0:
             print("Le kobold est mort! vous avez triomphé du combat, votre mission est maintenant finie.")
             exit()
+"""
