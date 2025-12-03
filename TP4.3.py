@@ -8,226 +8,173 @@ finit le
 from enum import Enum
 import random as rd
 from dataclasses import dataclass
-#
-# def jetdes():
-#     lancerdes = [rd.randint(1, 6) for i in range(4)]
-#     lancerdes.sort(reverse=True)
-#     trois_grands_lancers = lancerdes[0:3]
-#     total_trois_grands_lancers = lancerdes[0] + lancerdes[1] + lancerdes[2]
-#     return sum(trois_grands_lancers)
-#
-#
-# jetCA = rd.randint(1, 12)
-# nom_possible = ["Bob", "Bobby", "Robert", "Jean-bob", "Rafael"]
-# nom_choisi = rd.choice(nom_possible)
-# race_possible = ["Tieflin", "Nain", "Humain", "Gnome", "Elf", "Dragonborn"]
-# race_choisie = rd.choice(race_possible)
-#
-# droppable_items = ["Épée courte", "Dague", "Pièce d'or", "Armure de cuir", "Cuir de kobold", "Corne de kobold"]
-# dropped_items = [rd.choice(droppable_items), rd.choice(droppable_items), rd.choice(droppable_items)]
-#
-#
-# def race():
-#     race_possible = ["Tieflin", "Nain", "Humain", "Gnome", "Elf", "Dragonborn"]
-#     race_choisie = rd.choice(race_possible)
-#     return race_choisie
-#
-#
-# def nom_perso():
-#     nom_possible = ["Bob", "Bobby", "Robert", "Jean-bob", "Rafael"]
-#     nom_choisi = rd.choice(nom_possible)
-#     return nom_choisi
-#
-#
-# def specification_race(race_selectionnee):
-#     espece = "invalide"
-#     if race_selectionnee == "Tieflin":
-#         choix_espece = rd.randint(1, 3)
-#         if choix_espece == 1:
-#             espece = "Abyssal"
-#         elif choix_espece == 2:
-#             espece = "Chtonic"
-#         elif choix_espece == 3:
-#             espece = "Infernal"
-#     elif race_selectionnee == "Nain":
-#         choix_espece = rd.randint(1, 2)
-#         if choix_espece == 1:
-#             espece = "Nain des montagnes"
-#         elif choix_espece == 2:
-#             espece = "Nain gris"
-#     elif race_selectionnee == "Humain":
-#         choix_espece = rd.randint(1, 2)
-#         if choix_espece == 1:
-#             espece = "Blanc"
-#         elif choix_espece == 2:
-#             espece = "Noir"
-#     elif race_selectionnee == "Gnome":
-#         if nom_choisi == "Raphael":
-#             espece = "Psycopath malade mental qui tue des pingouins"
-#         else:
-#             choix_espece = rd.randint(1, 3)
-#             if choix_espece == 1:
-#                 espece = "Gnome des prairies"
-#             elif choix_espece == 2:
-#                 espece = "Gnome des forets"
-#             elif choix_espece == 3:
-#                 espece = "Gnome des montagnes"
-#     elif race_selectionnee == "Elf":
-#         choix_espece = rd.randint(1, 5)
-#         if choix_espece == 1:
-#             espece = "Elf normal"
-#         elif choix_espece == 2:
-#             espece = "Elf Sylvestre"
-#         elif choix_espece == 3:
-#             espece = "Elf des montagnes"
-#         elif choix_espece == 4:
-#             espece = "Elf Noir"
-#         elif choix_espece == 5:
-#             espece = "Haut Elf"
-#     elif race_selectionnee == "Dragonborn":
-#         choix_espece = rd.randint(1, 10)
-#         if choix_espece == 1:
-#             espece = "Brass"
-#         elif choix_espece == 2:
-#             espece = "Bronze"
-#         elif choix_espece == 3:
-#             espece = "Copper"
-#         elif choix_espece == 4:
-#             espece = "Gold"
-#         elif choix_espece == 5:
-#             espece = "Silver"
-#         elif choix_espece == 6:
-#             espece = "Black"
-#         elif choix_espece == 7:
-#             espece = "Blue"
-#         elif choix_espece == 8:
-#             espece = "Green"
-#         elif choix_espece == 9:
-#             espece = "Red"
-#         elif choix_espece == 10:
-#             espece = "White"
-#     return espece
-#
-#
-# def specif_prof():
-#     profession_possibles = ["Rogue", "Barde", "Guerrier", "Mage", "Noble", "Ranger"]
-#     profession_choisie = rd.choice(profession_possibles)
-#     return profession_choisie
-#
-#
-#
-#
-#
-# def capacsac():
-#     print(f"\nLe Kobold a droppé {dropped_items}!")
-#     choix = input("Voulez vous ajouter des items ou retirer des items de votre sac?\nAjouter\nRetirer\n")
-#     capac = ["10 Pièce d'or", "Livre Saint", "Flasque", "Ration"]
-#     if choix == "Ajouter":
-#         if len(capac) >= 5:
-#             print("Vous n'avez plus de place dans votre sac!")
-#         add_item = input("Quel item voulez vous ajouter a votre sac?\n")
-#         search_object = add_item
-#         if search_object in dropped_items:
-#             capac.append(add_item)
-#             dropped_items.remove(add_item)
-#         else:
-#             print("Erreur! Vous ne pouvez pas faire ça!")
-#             capac.remove(add_item)
-#             capacsac()
-#     elif choix == "Retirer":
-#         item_a_retirer = input("Quel item voulez vous retirer?\n")
-#         if item_a_retirer in capac:
-#             capac.remove(item_a_retirer)
-#     print(f"Votre sac contient maintenant : {capac}")
-#
-#     return capac
-#
-#
-#
-#
-#
-# @dataclass
-# class ITEM():
-#     def __init__(self):
-#         self.bag = []
-#         self.add_item = input("")
-#         self.bag.append(self.add_item)
-#         print(self.bag)
-#
-#
-#
-# item = ITEM()
-#
-#
-# """    def add_item():
-#         bag = []
-#         item = input("\nQuel est l'item que vous voulez ajouter?\n")
-#         bag.append(item)
-#         print(f"Votre sac contient maintenant : {bag}")
-# """
-#
-#
-# # jetdes()
-# class NPCDND:
-#     def __init__(self, hp):
-#         self.force = jetdes()
-#         self.const = jetdes()
-#         self.dex = jetdes()
-#         self.intel = jetdes()
-#         self.sage = jetdes()
-#         self.char = jetdes()
-#         self.ca = jetCA
-#         self.nom = nom_perso()
-#         self.race = race()
-#         self.espece = specification_race(self.race)
-#         self.profession = specif_prof()
-#         self.vie = hp
-#
-#
-# npc1 = NPCDND(rd.randint(1, 20))
-# print(f"La force du NPC est : {npc1.force}, sa constitution est de {npc1.const}, sa dexterité est de {npc1.dex},"
-#       f" son intelligence est de {npc1.intel}, sa sagesse est de {npc1.sage}, son charisme est de : {npc1.char},"
-#       f" sa AC est de : {npc1.ca}. \nSon nom est {npc1.nom}, sa race est : {npc1.race}"
-#       f" et son espèce est : {npc1.espece}. Le NPC est un : {npc1.profession}. Il a {npc1.vie} PV.")
-#
-#
-# class Hero(NPCDND):
-#
-#     def __init__(self, hp):
-#         super().__init__(hp)
-#         self.raceh = race()
-#         self.nom = nom_perso()
-#         # print(f"{self.raceh}")
-#         self.espece = specification_race(self.raceh)
-#         self.vie = hp
-#
-#
-#
-# hero = Hero(rd.randint(1, 20))
-#
-#
-#
-#
-# print(f"Voici les stats du Hero : La force du Hero est : {hero.force}, sa constitution est de {hero.const},"
-#       f" sa dexterité est de {hero.dex},son intelligence est de {hero.intel}, sa sagesse est de {hero.sage},"
-#       f" son charisme est de : {hero.char}, sa AC est de : {hero.ca}."
-#       f" \nSon nom est {hero.nom}, sa race est : {hero.raceh}"
-#       f" et son espèce est : {hero.espece}. Le NPC est un : {hero.profession}. Il a {hero.vie} PV.")
-#
-#
-# class Kobold(NPCDND):
-#     def __init__(self, type_de_monstre, hp):
-#         super().__init__(type_de_monstre)
-#         self.tm = type_de_monstre
-#         self.vie = hp
-#
+
+def jetdes():
+    lancerdes = [rd.randint(1, 6) for i in range(4)]
+    lancerdes.sort(reverse=True)
+    trois_grands_lancers = lancerdes[0:3]
+    total_trois_grands_lancers = lancerdes[0] + lancerdes[1] + lancerdes[2]
+    return sum(trois_grands_lancers)
+
+
+jetCA = rd.randint(1, 12)
+nom_possible = ["Bob", "Bobby", "Robert", "Jean-bob", "Rafael"]
+nom_choisi = rd.choice(nom_possible)
+race_possible = ["Tieflin", "Nain", "Humain", "Gnome", "Elf", "Dragonborn"]
+race_choisie = rd.choice(race_possible)
+
+
+
+def race():
+    race_possible = ["Tieflin", "Nain", "Humain", "Gnome", "Elf", "Dragonborn"]
+    race_choisie = rd.choice(race_possible)
+    return race_choisie
+
+
+def nom_perso():
+    nom_possible = ["Bob", "Bobby", "Robert", "Jean-bob", "Rafael"]
+    nom_choisi = rd.choice(nom_possible)
+    return nom_choisi
+
+
+def specification_race(race_selectionnee):
+    espece = "invalide"
+    if race_selectionnee == "Tieflin":
+        choix_espece = rd.randint(1, 3)
+        if choix_espece == 1:
+            espece = "Abyssal"
+        elif choix_espece == 2:
+            espece = "Chtonic"
+        elif choix_espece == 3:
+            espece = "Infernal"
+    elif race_selectionnee == "Nain":
+        choix_espece = rd.randint(1, 2)
+        if choix_espece == 1:
+            espece = "Nain des montagnes"
+        elif choix_espece == 2:
+            espece = "Nain gris"
+    elif race_selectionnee == "Humain":
+        choix_espece = rd.randint(1, 2)
+        if choix_espece == 1:
+            espece = "Blanc"
+        elif choix_espece == 2:
+            espece = "Noir"
+    elif race_selectionnee == "Gnome":
+        if nom_choisi == "Raphael":
+            espece = "Psycopath malade mental qui tue des pingouins"
+        else:
+            choix_espece = rd.randint(1, 3)
+            if choix_espece == 1:
+                espece = "Gnome des prairies"
+            elif choix_espece == 2:
+                espece = "Gnome des forets"
+            elif choix_espece == 3:
+                espece = "Gnome des montagnes"
+    elif race_selectionnee == "Elf":
+        choix_espece = rd.randint(1, 5)
+        if choix_espece == 1:
+            espece = "Elf normal"
+        elif choix_espece == 2:
+            espece = "Elf Sylvestre"
+        elif choix_espece == 3:
+            espece = "Elf des montagnes"
+        elif choix_espece == 4:
+            espece = "Elf Noir"
+        elif choix_espece == 5:
+            espece = "Haut Elf"
+    elif race_selectionnee == "Dragonborn":
+        choix_espece = rd.randint(1, 10)
+        if choix_espece == 1:
+            espece = "Brass"
+        elif choix_espece == 2:
+            espece = "Bronze"
+        elif choix_espece == 3:
+            espece = "Copper"
+        elif choix_espece == 4:
+            espece = "Gold"
+        elif choix_espece == 5:
+            espece = "Silver"
+        elif choix_espece == 6:
+            espece = "Black"
+        elif choix_espece == 7:
+            espece = "Blue"
+        elif choix_espece == 8:
+            espece = "Green"
+        elif choix_espece == 9:
+            espece = "Red"
+        elif choix_espece == 10:
+            espece = "White"
+    return espece
+
+
+def specif_prof():
+    profession_possibles = ["Rogue", "Barde", "Guerrier", "Mage", "Noble", "Ranger"]
+    profession_choisie = rd.choice(profession_possibles)
+    return profession_choisie
+
+jetdes()
+class NPCDND:
+    def __init__(self, hp):
+        self.force = jetdes()
+        self.const = jetdes()
+        self.dex = jetdes()
+        self.intel = jetdes()
+        self.sage = jetdes()
+        self.char = jetdes()
+        self.ca = jetCA
+        self.nom = nom_perso()
+        self.race = race()
+        self.espece = specification_race(self.race)
+        self.profession = specif_prof()
+        self.vie = hp
+
+
+npc1 = NPCDND(rd.randint(1, 20))
+print(f"La force du NPC est : {npc1.force}, sa constitution est de {npc1.const}, sa dexterité est de {npc1.dex},"
+      f" son intelligence est de {npc1.intel}, sa sagesse est de {npc1.sage}, son charisme est de : {npc1.char},"
+      f" sa AC est de : {npc1.ca}. \nSon nom est {npc1.nom}, sa race est : {npc1.race}"
+      f" et son espèce est : {npc1.espece}. Le NPC est un : {npc1.profession}. Il a {npc1.vie} PV.")
+
+
+class Hero(NPCDND):
+
+    def __init__(self, hp):
+        super().__init__(hp)
+        self.raceh = race()
+        self.nom = nom_perso()
+        # print(f"{self.raceh}")
+        self.espece = specification_race(self.raceh)
+        self.vie = hp
+
+
+
+hero = Hero(rd.randint(1, 20))
+
+
+
+
+print(f"Voici les stats du Hero : La force du Hero est : {hero.force}, sa constitution est de {hero.const},"
+      f" sa dexterité est de {hero.dex},son intelligence est de {hero.intel}, sa sagesse est de {hero.sage},"
+      f" son charisme est de : {hero.char}, sa AC est de : {hero.ca}."
+      f" \nSon nom est {hero.nom}, sa race est : {hero.raceh}"
+      f" et son espèce est : {hero.espece}. Le NPC est un : {hero.profession}. Il a {hero.vie} PV.")
+
+
+class Kobold(NPCDND):
+    def __init__(self, type_de_monstre, hp):
+        super().__init__(type_de_monstre)
+        self.tm = type_de_monstre
+        self.vie = hp
+
 
 @dataclass
 class Item:
     nom: str
     qte: int
 
-
+    def __eq__(self, other):
+        if self.nom == other.nom:
+            return True
 
 
 class Sac:
@@ -235,21 +182,83 @@ class Sac:
         #self.capacite = capacsac()
         self.contenu = []
 
-    def ajouter(self, item: Item):
-        pass
+    def ajouter(self, item_ajouter: Item):
+        for item in self.contenu:
+            if item.nom == item_ajouter.nom:
+                item.qte += item_ajouter.qte
+                return
+        self.contenu.append(item_ajouter)
 
-    def retirer(self, item: Item):
-        pass
 
+    def retirer(self, item_enlever: Item):
+        for item in self.contenu:
+            if item.nom == item_enlever.nom:
+                if item.qte - item_enlever.qte == 0:
+                    self.contenu.remove(item)
+                    print(item.qte)
+                    return
+                elif item.qte - item_enlever.qte > 0:
+                    print("Action possible")
+                    return
+                elif item.qte - item_enlever.qte < 0:
+                    print(f"Impossible de retirer {item_enlever.qte} de '{item_enlever.nom}'")
+                    return
+                item.qte -= item_enlever.qte
+        print(f"Impossible, l'item '{item_enlever}' n'est pas dans le sac")###
 
 s = Sac()
-s.contenu.append(Item("Pièce or", 6))
-s.contenu.append(Item("Pièce argent", 12))
-s.contenu.append(Item("Pièce or", 2))
+s.ajouter(Item("or", 5))
+s.ajouter(Item("or", 5))
+s.ajouter(Item("Peluche de kobold", 1))
+s.ajouter(Item("argent", 50))
 print(s.contenu)
-s.retirer(Item("Pièce or", 3))
-s.retirer(Item("Pièce argent", 30))
+s.retirer(Item("or", 9))
+s.retirer(Item("argent", 45))
+s.retirer(Item("argene3333t", 45))
+#s.retirer(Item("Téléphone", 4))
 print(s.contenu)
+
+def action_avec_sac():
+    interaction_avec_sac = int(input("Que voulez vous faire?\n 1 -Ajouter des items a votre sac\n 2 -Retirer des items de votre sac\n"))
+    if interaction_avec_sac == 1:
+        nom_objet  = input("Quel est l'item que vous voulez ajouter?\n")
+        quantite = int(input("Quelle est la quantité d'objet que vous voulez ajouter?\n"))
+        s.contenu.append(Item(nom_objet, quantite))
+        print(s.contenu)
+        ajouter_autres_items = input("Voulez vous faire d'autre action avec le sac?\n -Oui\n -Non\n")
+        if ajouter_autres_items == "Oui":
+            action_avec_sac()
+        elif ajouter_autres_items == "Non":
+            print("Vous quittez le code...")
+            print ("Exiting...\nPlease don't turn off PC when the code is closing...\nCode closed")
+    elif interaction_avec_sac == 2:
+        nom_objet = input("Quel est l'item que vous voulez retirer?\n")
+        quantite = int(input("Quelle est la quantité d'objet que vous voulez retirer?\n"))
+        item_a_verifier = Item(nom_objet, quantite)
+        if item_a_verifier in s.contenu:
+            print("L'item est dans le sac, vous pouvez le retirer")
+            for item in s.contenu:
+                if item.nom == item_a_verifier.nom:
+                    pass
+        else:
+            print("L'item que vous voulez retirer n'est pas dans le sac.")
+            exit()
+        s.contenu.remove(Item(nom_objet, quantite))
+        print(s)
+        ajouter_autres_items = input("Voulez vous faire d'aurtes actions avec le sac?\n -Oui\n -Non\n")
+        if ajouter_autres_items == "Oui":
+            action_avec_sac()
+        elif ajouter_autres_items == "Non":
+            print("Vous quittez le code...")
+            print("Exiting...\nPlease don't turn off PC when the code is closing...\nCode closed")
+    return s
+
+#action_avec_sac()
+
+#print(s.contenu)
+#s.retirer(Item("Pièce or", 3))
+
+#print(s.contenu)
 
 
 # monstre = Kobold("Kobold", rd.randint(1, 20))
