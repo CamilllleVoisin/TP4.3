@@ -2,7 +2,7 @@
 TP4.2.1
 Par Camille Voisin
 commencé le 10 octobre 2025
-finit le
+finit le 3 Décembre 2025
 """
 
 from enum import Enum
